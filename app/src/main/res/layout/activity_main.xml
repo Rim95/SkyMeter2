@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SkyMeter2 Instructions"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="35dp"
+        android:paddingLeft="20dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/siguiente"
+        android:text="@string/siguiente"
+        android:layout_marginTop="470dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Before to start read all instructions. \n\n 1. Press Start button. \n\n 2. Cover camera and press DARK button. \n\n 3. Uncover the camera and aim to the point figth above your head. Press SKY button. "
+        android:layout_marginTop="100dp"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="20dp"/>
+
+
+</android.support.constraint.ConstraintLayout>
