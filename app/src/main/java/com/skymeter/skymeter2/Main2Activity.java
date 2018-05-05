@@ -1,47 +1,48 @@
 package com.skymeter.skymeter2;
 
+import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
+import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.v4.content.ContextCompat;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
-//new imports
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Map;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.widget.TextView;
-
-
-
-
-public class Main2Activity extends AppCompatActivity {
-
+//Segunda actividad donde se toman las fotos
+public class Main2Activity extends AppCompatActivity{
 
     //Variables para tomar la foto
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
@@ -49,12 +50,20 @@ public class Main2Activity extends AppCompatActivity {
     private ImageView ivImage, ivImage2;
     private String userChoosenTask;
 
+    //Variables para subir la foto
+    private Button btnSubir;
+    private EditText editTextName;
+    private Bitmap bitmap;
+    private int PICK_IMAGE_REQUEST = 1;
+    private String UPLOAD_URL = "http://serverapp.webcindario.com/upload.php";
+
+    private String KEY_IMAGEN = "foto";
+    private String KEY_NOMBRE = "nombre";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
 
         //Boton de foto DARK
         btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
@@ -79,12 +88,22 @@ public class Main2Activity extends AppCompatActivity {
         });
         ivImage2 = (ImageView) findViewById(R.id.ivImage2);
 
+        //Boton de Submit
+        btnSubir = (Button) findViewById(R.id.btnSubir);
+        editTextName = (EditText) findViewById(R.id.editText);
 
-
-
-
-
-
+        btnSelect.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+        btnSubir.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadImage();
+            }
+        });
     }
 
 
@@ -104,6 +123,8 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
+
+    //Opciones para seleccionar la foto, coger de la galeria o cancelar
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
@@ -133,6 +154,7 @@ public class Main2Activity extends AppCompatActivity {
         builder.show();
     }
 
+    //Si se selecciona la imagen de la galeria
     private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -140,23 +162,53 @@ public class Main2Activity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
 
+    //Si se obtiene la foto de la cámara
     private void cameraIntent() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
+/**
+ @Override
+ public void onActivityResult(int requestCode, int resultCode, Intent data) {
+ super.onActivityResult(requestCode, resultCode, data);
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+ if (resultCode == Activity.RESULT_OK) {
+ if (requestCode == SELECT_FILE)
+ onSelectFromGalleryResult(data);
+ else if (requestCode == REQUEST_CAMERA)
+ onCaptureImageResult(data);
+ }
+ }
 
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE)
-                onSelectFromGalleryResult(data);
-            else if (requestCode == REQUEST_CAMERA)
-                onCaptureImageResult(data);
-        }
-    }
+ **/
 
+    /**
+     @Override
+     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     super.onActivityResult(requestCode, resultCode, data);
+
+     if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+     Uri filePath = data.getData();
+     try {
+     //Cómo obtener el mapa de bits de la Galería
+     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+     //Configuración del mapa de bits en ImageView
+     ivImage.setImageBitmap(bitmap);
+     } catch (IOException e) {
+     e.printStackTrace();
+     }
+     }
+     }
+     **/
+
+
+
+
+
+
+
+
+    //Como tratar la imagen si se coge de la cámara
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -180,6 +232,8 @@ public class Main2Activity extends AppCompatActivity {
         ivImage.setImageBitmap(thumbnail);
     }
 
+
+    //Como tratar la imagen si se coge desde la galeria
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
 
@@ -195,8 +249,67 @@ public class Main2Activity extends AppCompatActivity {
         ivImage.setImageBitmap(bm);
     }
 
+    //Funcion para conseguir el nombre de la imagen a subir
+    public String getStringImagen(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
 
+    //Funcion para cargar la imagen al servidor
+    private void uploadImage() {
+        //Mostrar el diálogo de progreso
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor...", false, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        //Mostrando el mensaje de la respuesta
+                        Toast.makeText(Main2Activity.this, s, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+
+                        //Showing toast
+                        Toast.makeText(Main2Activity.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Convertir bits a cadena
+                String imagen = getStringImagen(bitmap);
+
+                //Obtener el nombre de la imagen
+                String nombre = editTextName.getText().toString().trim();
+
+                //Creación de parámetros
+                Map<String, String> params = new Hashtable<String, String>();
+
+                //Agregando de parámetros
+                params.put(KEY_IMAGEN, imagen);
+                params.put(KEY_NOMBRE, nombre);
+
+                //Parámetros de retorno
+                return params;
+            }
+        };
+
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
+    }
 }
+
 
 
 

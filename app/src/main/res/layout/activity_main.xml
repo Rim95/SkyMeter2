@@ -25,7 +25,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Before to start read all instructions. \n\n 1. Press Start button. \n\n 2. Cover camera and press DARK button. \n\n 3. Uncover the camera and aim to the point figth above your head. Press SKY button. "
+        android:text="Before to start read all instructions. \n\n 1. Press Start button. \n\n 2. Cover camera and press DARK button. \n\n 3. Uncover the camera and aim to the point figth above your head. Press SKY button. \n\n 4. (Optional) Submit your measurement to us. "
         android:layout_marginTop="100dp"
         android:textSize="20dp"
         android:textColor="@color/colorPrimary"
