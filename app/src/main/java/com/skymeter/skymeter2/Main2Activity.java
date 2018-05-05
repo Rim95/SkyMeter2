@@ -1,5 +1,6 @@
 package com.skymeter.skymeter2;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
@@ -92,12 +93,7 @@ public class Main2Activity extends AppCompatActivity{
         btnSubir = (Button) findViewById(R.id.btnSubir);
         editTextName = (EditText) findViewById(R.id.editText);
 
-        btnSelect.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage();
-            }
-        });
+
         btnSubir.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,45 +163,32 @@ public class Main2Activity extends AppCompatActivity{
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
-/**
- @Override
- public void onActivityResult(int requestCode, int resultCode, Intent data) {
- super.onActivityResult(requestCode, resultCode, data);
-
- if (resultCode == Activity.RESULT_OK) {
- if (requestCode == SELECT_FILE)
- onSelectFromGalleryResult(data);
- else if (requestCode == REQUEST_CAMERA)
- onCaptureImageResult(data);
- }
- }
-
- **/
-
-    /**
-     @Override
-     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-     super.onActivityResult(requestCode, resultCode, data);
-
-     if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-     Uri filePath = data.getData();
-     try {
-     //Cómo obtener el mapa de bits de la Galería
-     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-     //Configuración del mapa de bits en ImageView
-     ivImage.setImageBitmap(bitmap);
-     } catch (IOException e) {
-     e.printStackTrace();
-     }
-     }
-     }
-     **/
 
 
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
 
+    if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        Uri filePath = data.getData();
+        try {
+            //Cómo obtener el mapa de bits de la Galería
+            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+            //Configuración del mapa de bits en ImageView
+            ivImage.setImageBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    if(requestCode == REQUEST_CAMERA) {
+        //Uri filePath = data.getData();
+        //onCaptureImageResult(data);
+        bitmap = (Bitmap) data.getExtras().get("data");
+        ivImage.setImageBitmap(bitmap);
 
-
+    }
+}
 
 
     //Como tratar la imagen si se coge de la cámara
@@ -245,7 +228,6 @@ public class Main2Activity extends AppCompatActivity{
                 e.printStackTrace();
             }
         }
-
         ivImage.setImageBitmap(bm);
     }
 
@@ -261,7 +243,7 @@ public class Main2Activity extends AppCompatActivity{
     //Funcion para cargar la imagen al servidor
     private void uploadImage() {
         //Mostrar el diálogo de progreso
-        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor...", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Wait please...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
