@@ -164,32 +164,27 @@ public class Main2Activity extends AppCompatActivity{
         startActivityForResult(intent, REQUEST_CAMERA);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-
-    if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-        Uri filePath = data.getData();
-        try {
-            //Cómo obtener el mapa de bits de la Galería
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-            //Configuración del mapa de bits en ImageView
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+                //Cómo obtener el mapa de bits de la Galería
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                //Configuración del mapa de bits en ImageView
+                ivImage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+        //if(requestCode == REQUEST_CAMERA) {
+            bitmap = (Bitmap) data.getExtras().get("data");
             ivImage.setImageBitmap(bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
-
-    if(requestCode == REQUEST_CAMERA) {
-        //Uri filePath = data.getData();
-        //onCaptureImageResult(data);
-        bitmap = (Bitmap) data.getExtras().get("data");
-        ivImage.setImageBitmap(bitmap);
-
-    }
-}
-
 
     //Como tratar la imagen si se coge de la cámara
     private void onCaptureImageResult(Intent data) {
