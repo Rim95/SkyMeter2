@@ -1,27 +1,19 @@
 package com.skymeter.skymeter2;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -53,13 +45,11 @@ public class Main2Activity extends AppCompatActivity{
 
     //Variables para subir la foto
     private Button btnSubir;
-    private EditText editTextName;
-    private Bitmap bitmap;
+    private Bitmap bitmap,bitmap2;
     private int PICK_IMAGE_REQUEST = 1;
     private String UPLOAD_URL = "http://serverapp.webcindario.com/upload.php";
 
     private String KEY_IMAGEN = "foto";
-    private String KEY_NOMBRE = "nombre";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +81,6 @@ public class Main2Activity extends AppCompatActivity{
 
         //Boton de Submit
         btnSubir = (Button) findViewById(R.id.btnSubir);
-        editTextName = (EditText) findViewById(R.id.editText);
-
-
         btnSubir.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +90,7 @@ public class Main2Activity extends AppCompatActivity{
     }
 
 
+    //Permisos para tomar la foto o coger desde la galeria
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -173,8 +161,10 @@ public class Main2Activity extends AppCompatActivity{
             try {
                 //Cómo obtener el mapa de bits de la Galería
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 //Configuración del mapa de bits en ImageView
                 ivImage.setImageBitmap(bitmap);
+                //ivImage2.setImageBitmap(bitmap2);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -183,6 +173,8 @@ public class Main2Activity extends AppCompatActivity{
         //if(requestCode == REQUEST_CAMERA) {
             bitmap = (Bitmap) data.getExtras().get("data");
             ivImage.setImageBitmap(bitmap);
+            //bitmap2 = (Bitmap) data.getExtras().get("data");
+            //ivImage2.setImageBitmap(bitmap2);
         }
     }
 
@@ -209,7 +201,6 @@ public class Main2Activity extends AppCompatActivity{
 
         ivImage.setImageBitmap(thumbnail);
     }
-    //
 
 
     //Como tratar la imagen si se coge desde la galeria
@@ -264,16 +255,15 @@ public class Main2Activity extends AppCompatActivity{
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Convertir bits a cadena
                 String imagen = getStringImagen(bitmap);
+               // String imagen2 = getStringImagen(bitmap2);
 
-                //Obtener el nombre de la imagen
-                String nombre = editTextName.getText().toString().trim();
 
                 //Creación de parámetros
                 Map<String, String> params = new Hashtable<String, String>();
 
                 //Agregando de parámetros
                 params.put(KEY_IMAGEN, imagen);
-                params.put(KEY_NOMBRE, nombre);
+              //  params.put(KEY_IMAGEN, imagen2);
 
                 //Parámetros de retorno
                 return params;
