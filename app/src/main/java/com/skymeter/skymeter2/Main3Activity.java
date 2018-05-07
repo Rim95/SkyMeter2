@@ -52,6 +52,9 @@ public class Main3Activity extends AppCompatActivity{
 
     private String KEY_IMAGEN = "foto";
 
+    //Variable para finalizar
+    Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +79,15 @@ public class Main3Activity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 uploadImage();
+            }
+        });
+
+        //Boton de siguiente foto
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Main3Activity.this, Main4Activity.class));
             }
         });
 
