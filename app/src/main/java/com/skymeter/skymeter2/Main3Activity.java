@@ -35,7 +35,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 //Segunda actividad donde se toman las fotos
-public class Main2Activity extends AppCompatActivity{
+public class Main3Activity extends AppCompatActivity{
 
     //Variables para tomar la foto
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
@@ -43,8 +43,6 @@ public class Main2Activity extends AppCompatActivity{
     private ImageView ivImage;
     private String userChoosenTask;
 
-    //Boton para la siguiente actividad (Foto de sky)
-    Button button;
 
     //Variables para subir la foto
     private Button btnSubir;
@@ -57,7 +55,7 @@ public class Main2Activity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main3);
 
         //Boton de foto DARK
         btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
@@ -81,14 +79,6 @@ public class Main2Activity extends AppCompatActivity{
             }
         });
 
-        //Boton de siguiente foto
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Main2Activity.this, Main3Activity.class));
-            }
-        });
 
     }
 
@@ -116,12 +106,12 @@ public class Main2Activity extends AppCompatActivity{
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(Main2Activity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Main3Activity.this);
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                boolean result = Utility.checkPermission(Main2Activity.this);
+                boolean result = Utility.checkPermission(Main3Activity.this);
 
                 if (items[item].equals("Take Photo")) {
                     userChoosenTask = "Take Photo";
@@ -173,7 +163,7 @@ public class Main2Activity extends AppCompatActivity{
             }
         }
         else{
-        //if(requestCode == REQUEST_CAMERA) {
+            //if(requestCode == REQUEST_CAMERA) {
             bitmap = (Bitmap) data.getExtras().get("data");
             ivImage.setImageBitmap(bitmap);
         }
@@ -239,7 +229,7 @@ public class Main2Activity extends AppCompatActivity{
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        Toast.makeText(Main2Activity.this, s, Toast.LENGTH_LONG).show();
+                        Toast.makeText(Main3Activity.this, s, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -249,7 +239,7 @@ public class Main2Activity extends AppCompatActivity{
                         loading.dismiss();
 
                         //Showing toast
-                        Toast.makeText(Main2Activity.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Main3Activity.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -276,16 +266,3 @@ public class Main2Activity extends AppCompatActivity{
         requestQueue.add(stringRequest);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
