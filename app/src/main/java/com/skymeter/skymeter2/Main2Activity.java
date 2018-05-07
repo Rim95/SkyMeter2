@@ -209,6 +209,7 @@ public class Main2Activity extends AppCompatActivity{
 
         ivImage.setImageBitmap(thumbnail);
     }
+    //
 
 
     //Como tratar la imagen si se coge desde la galeria
