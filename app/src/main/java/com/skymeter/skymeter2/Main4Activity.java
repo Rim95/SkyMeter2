@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class Main4Activity extends AppCompatActivity {
+    //En esta actividad se obtienen los metadatos o exif del móvil desde donde se obtienen las imagenes
 
     TextView mensaje1;
     TextView mensaje2;
@@ -143,4 +144,13 @@ public class Main4Activity extends AppCompatActivity {
             }
         }
     }
+
+
+
+    //NUEVO -- Para obtener los metadatos
+
+
+
+
+
 }

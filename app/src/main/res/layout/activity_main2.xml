@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:background="@drawable/stars">
 
     <!-- DARK button -->
     <LinearLayout
@@ -48,7 +49,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#303f9f"
+            android:background="#8a0f24"
             android:text="Next photo"
             android:textColor="@android:color/background_light"
             android:textColorHighlight="@color/colorPrimaryDark" />

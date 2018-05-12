@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class Main3Activity extends AppCompatActivity{
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private Button btnSelect;
     private ImageView ivImage;
+    private EditText editTextName;
     private String userChoosenTask;
 
 
@@ -50,7 +52,8 @@ public class Main3Activity extends AppCompatActivity{
     private int PICK_IMAGE_REQUEST = 1;
     private String UPLOAD_URL = "http://serverapp.webcindario.com/upload.php";
 
-    private String KEY_IMAGEN = "foto";
+    private String KEY_IMAGEN = "foto";  //ponia foto
+    private String KEY_NUBES = "nubes";
 
     //Variable para finalizar
     Button button;
@@ -59,6 +62,8 @@ public class Main3Activity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+
+        editTextName = (EditText)findViewById(R.id.editText);
 
         //Boton de foto DARK
         btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
@@ -259,12 +264,16 @@ public class Main3Activity extends AppCompatActivity{
                 //Convertir bits a cadena
                 String imagen = getStringImagen(bitmap);
 
+                //Obtener el resultado de la concentracion de nubes
+                String nubes = editTextName.getText().toString().trim();
+
 
                 //Creación de parámetros
                 Map<String, String> params = new Hashtable<String, String>();
 
                 //Agregando de parámetros
                 params.put(KEY_IMAGEN, imagen);
+                params.put(KEY_NUBES, nubes);
 
                 //Parámetros de retorno
                 return params;

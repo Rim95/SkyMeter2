@@ -4,21 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:background="@drawable/stars">
 
     <!-- SKY button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="5dp" >
+        android:padding="5dp">
 
         <Button
             android:id="@+id/btnSelectPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
             android:text="SKY" />
     </LinearLayout>
+
+    <!--Para decir la concentración de las nubes-->
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Clouds concentration"
+        android:textColor="@android:color/background_light" />
 
     <!-- Submit button-->
     <LinearLayout
@@ -31,8 +41,10 @@
             android:id="@+id/btnSubir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
             android:text="Submit" />
     </LinearLayout>
+
 
     <!-- Next photo button -->
     <LinearLayout
@@ -46,7 +58,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#303f9f"
+            android:background="#8a0f24"
             android:text="FINISH"
             android:textColor="@android:color/background_light"
             android:textColorHighlight="@color/colorPrimaryDark" />
