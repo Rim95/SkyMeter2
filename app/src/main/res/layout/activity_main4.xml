@@ -14,7 +14,18 @@
         android:layout_alignParentLeft = "true"
         android:orientation="vertical" >
 
+        <!-- Da las gracias y da información -->
+        <TextView
+            android:id="@+id/fin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:text="Thank you for the measurements!"
+            android:textColor="@android:color/background_light"
+            android:textSize="30dp" />
 
+        <!-- mensaje de altitud y longitud -->
         <TextView
             android:id="@+id/mensaje_id"
             android:layout_width="match_parent"
@@ -25,6 +36,7 @@
             android:textColor="@android:color/background_light"
             android:textSize="20dp" />
 
+        <!-- Mensaje de localización -->
         <TextView
             android:id="@+id/mensaje_id2"
             android:layout_width="match_parent"
@@ -33,6 +45,18 @@
             android:text="TextView"
             android:textColor="@android:color/background_light"
             android:textSize="20dp" />
+
+    <!-- Botón para comenzar otra vez -->
+        <Button
+            android:id="@+id/principio"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#8a0f24"
+            android:text="STAR AGAIN"
+            android:layout_marginTop="120dp"
+            android:textColor="@android:color/background_light"
+            android:textColorHighlight="@color/colorPrimaryDark" />
 
     </LinearLayout>
 

@@ -15,6 +15,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -26,6 +28,7 @@ public class Main4Activity extends AppCompatActivity {
 
     TextView mensaje1;
     TextView mensaje2;
+    Button principio;
 
 
     @Override
@@ -35,6 +38,14 @@ public class Main4Activity extends AppCompatActivity {
 
         mensaje1 = (TextView) findViewById(R.id.mensaje_id);
         mensaje2 = (TextView) findViewById(R.id.mensaje_id2);
+        //Para volver a comienzo de la aplicación (primer actividad)
+        principio = (Button)findViewById(R.id.principio);
+        principio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Main4Activity.this, MainActivity.class));
+            }
+        });
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
