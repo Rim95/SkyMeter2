@@ -1,23 +1,36 @@
 package com.skymeter.skymeter2;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -38,6 +51,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.SimpleTimeZone;
@@ -62,7 +76,7 @@ public class Main2Activity extends AppCompatActivity{
 
     private String KEY_IMAGEN = "foto";
     private String KEY_FECHA = "fecha";
-    private String KEY_HORA = "hora";
+    private String KEY_MODELO = "modelo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,6 +251,7 @@ public class Main2Activity extends AppCompatActivity{
         return encodedImage;
     }
 
+
     //Funcion para cargar la imagen al servidor
     private void uploadImage() {
         //Mostrar el diálogo de progreso
@@ -275,11 +290,14 @@ public class Main2Activity extends AppCompatActivity{
 
                 String fecha = dateFormat.format(date);
 
+                //Obtener modelo
+                String modelo = Build.MANUFACTURER + " " + Build.MODEL + " " + Build.VERSION.RELEASE + " " + Build.VERSION_CODES.class.getFields()[Build.VERSION.SDK_INT].getName();
 
 
                 //Agregando de parámetros
                 params.put(KEY_IMAGEN, imagen);
                 params.put(KEY_FECHA,fecha);
+                params.put(KEY_MODELO, modelo);
 
                 //Parámetros de retorno
                 return params;

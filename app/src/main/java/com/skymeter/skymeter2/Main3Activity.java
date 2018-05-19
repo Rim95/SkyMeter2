@@ -1,12 +1,20 @@
 package com.skymeter.skymeter2;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +43,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -58,6 +67,8 @@ public class Main3Activity extends AppCompatActivity{
     private String KEY_IMAGEN = "foto";
     private String KEY_FECHA = "fecha";
     private String KEY_NUBES = "nubes";
+    private String KEY_ALTITUD = "altitud";
+    private String KEY_MODELO = "modelo";
 
     //Variable para finalizar
     Button button;
@@ -270,8 +281,8 @@ public class Main3Activity extends AppCompatActivity{
                 String imagen = getStringImagen(bitmap);
 
                 //Obtener el resultado de la concentracion de nubes
-                //String nubes = editTextName.getText().toString().trim();
-                String nubes = editTextName.getText().toString();
+                String nubes = editTextName.getText().toString().trim();
+                //String nubes = editTextName.getText().toString();
 
 
                 //Para obtener la fecha//
@@ -280,6 +291,11 @@ public class Main3Activity extends AppCompatActivity{
 
                 String fecha = dateFormat.format(date);
 
+                //Obtener coordenadas
+
+                //Obtener modelo
+                String modelo = Build.MANUFACTURER + " " + Build.MODEL + " " + Build.VERSION.RELEASE + " " + Build.VERSION_CODES.class.getFields()[Build.VERSION.SDK_INT].getName();
+
                 //Creación de parámetros
                 Map<String, String> params = new Hashtable<String, String>();
 
@@ -287,6 +303,8 @@ public class Main3Activity extends AppCompatActivity{
                 params.put(KEY_IMAGEN, imagen);
                 params.put(KEY_NUBES, nubes);
                 params.put(KEY_FECHA, fecha);
+                //params.put(KEY_ALTITUD, latitude);
+                params.put(KEY_MODELO, modelo);
 
                 //Parámetros de retorno
                 return params;
