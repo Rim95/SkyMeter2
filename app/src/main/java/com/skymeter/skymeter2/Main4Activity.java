@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,7 +31,6 @@ public class Main4Activity extends AppCompatActivity {
     TextView mensaje1;
     TextView mensaje2;
     Button principio;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,13 +156,5 @@ public class Main4Activity extends AppCompatActivity {
             }
         }
     }
-
-
-
-    //NUEVO -- Para obtener los metadatos
-
-
-
-
 
 }

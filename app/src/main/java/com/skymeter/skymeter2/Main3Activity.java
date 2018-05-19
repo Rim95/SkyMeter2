@@ -32,7 +32,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Map;
 
 //Segunda actividad donde se toman las fotos
@@ -53,10 +56,12 @@ public class Main3Activity extends AppCompatActivity{
     private String UPLOAD_URL = "http://serverapp.webcindario.com/upload.php";
 
     private String KEY_IMAGEN = "foto";  //ponia foto
+    private String KEY_FECHA = "fecha";
     private String KEY_NUBES = "nubes";
 
     //Variable para finalizar
     Button button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -265,9 +270,15 @@ public class Main3Activity extends AppCompatActivity{
                 String imagen = getStringImagen(bitmap);
 
                 //Obtener el resultado de la concentracion de nubes
-               // String nubes = editTextName.getText().toString().trim();
-                String nubes = editTextName.getText().toString();
+                String nubes = editTextName.getText().toString().trim();
+                //String nubes = editTextName.getText().toString();
 
+                //Fecha
+                //Para obtener el dia y la fecha
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                Date date = new Date();
+
+                String fecha = dateFormat.format(date);
 
                 //Creación de parámetros
                 Map<String, String> params = new Hashtable<String, String>();
@@ -275,6 +286,7 @@ public class Main3Activity extends AppCompatActivity{
                 //Agregando de parámetros
                 params.put(KEY_IMAGEN, imagen);
                 params.put(KEY_NUBES, nubes);
+                params.put(KEY_FECHA, fecha);
 
                 //Parámetros de retorno
                 return params;
