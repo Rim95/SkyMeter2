@@ -33,11 +33,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
+import java.util.SimpleTimeZone;
 
 //Segunda actividad donde se toman las fotos
 public class Main2Activity extends AppCompatActivity{
@@ -59,6 +62,7 @@ public class Main2Activity extends AppCompatActivity{
 
     private String KEY_IMAGEN = "foto";
     private String KEY_FECHA = "fecha";
+    private String KEY_HORA = "hora";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -265,18 +269,17 @@ public class Main2Activity extends AppCompatActivity{
                 //Creación de parámetros
                 Map<String, String> params = new Hashtable<String, String>();
 
-                //Para obtener el dia y la fecha
-
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                //Para obtener la fecha y hora
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss", Locale.getDefault());
                 Date date = new Date();
 
                 String fecha = dateFormat.format(date);
 
+
+
                 //Agregando de parámetros
                 params.put(KEY_IMAGEN, imagen);
                 params.put(KEY_FECHA,fecha);
-
-
 
                 //Parámetros de retorno
                 return params;

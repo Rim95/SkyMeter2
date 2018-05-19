@@ -270,12 +270,12 @@ public class Main3Activity extends AppCompatActivity{
                 String imagen = getStringImagen(bitmap);
 
                 //Obtener el resultado de la concentracion de nubes
-                String nubes = editTextName.getText().toString().trim();
-                //String nubes = editTextName.getText().toString();
+                //String nubes = editTextName.getText().toString().trim();
+                String nubes = editTextName.getText().toString();
 
 
                 //Para obtener la fecha
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss", Locale.getDefault());
                 Date date = new Date();
 
                 String fecha = dateFormat.format(date);
