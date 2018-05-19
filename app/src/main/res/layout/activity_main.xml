@@ -11,10 +11,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
+        android:paddingLeft="35dp"
         android:text="SkyMeter2 Instructions"
         android:textColor="@android:color/background_light"
-        android:textSize="35dp" />
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/siguiente"
@@ -23,17 +23,18 @@
         android:layout_marginTop="470dp"
         android:background="#8a0f24"
         android:text="@string/siguiente"
+        android:textSize="20dp"
         android:textColor="@android:color/background_light" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="80dp"
-        android:paddingLeft="25dp"
-        android:text="Before to start read all instructions. \n\n 1. Press Start button. \n\n 2. Cover camera and press DARK button. \n\n 3. (Optional) Submit your measurement to us.  \n\n 4. Press Next photo button. \n\n 5. Uncover the camera and aim to the point figth above your head. Press SKY button. \n\n 6. (Optional) Submit your measurement to us. "
+        android:paddingTop="50dp"
+        android:paddingLeft="20dp"
+        android:text="Before to start read all instructions. \n\n 1. Press Start button. \n\n 2. Cover camera and press DARK button. \n\n 3. (Optional) Submit your measurement to us. \n\n 4. Press Next photo button. \n\n 5. Uncover the camera and aim to the point figth above your head. Press SKY button. \n\n 6. (Optional) Add clouds concentration. \n\n 7.(Optional) Submit your measurement to us. "
         android:textColor="@android:color/background_light"
-        android:textSize="20dp" />
+        android:textSize="18dp" />
 
 
 </android.support.constraint.ConstraintLayout>

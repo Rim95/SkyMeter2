@@ -231,66 +231,50 @@ public class Main2Activity extends AppCompatActivity{
 
     //Funcion para cargar la imagen al servidor
     private void uploadImage() {
-            //Mostrar el diálogo de progreso
-            final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Wait please...", false, false);
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String s) {
-                            //Descartar el diálogo de progreso
-                            loading.dismiss();
-                            //Mostrando el mensaje de la respuesta
-                            Toast.makeText(Main2Activity.this, s, Toast.LENGTH_LONG).show();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            //Descartar el diálogo de progreso
-                            loading.dismiss();
+        //Mostrar el diálogo de progreso
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Wait please...", false, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        //Mostrando el mensaje de la respuesta
+                        Toast.makeText(Main2Activity.this, s, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
 
-                            //Showing toast
-                            Toast.makeText(Main2Activity.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    //Convertir bits a cadena
-                    String imagen = getStringImagen(bitmap);
+                        //Showing toast
+                        Toast.makeText(Main2Activity.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Convertir bits a cadena
+                String imagen = getStringImagen(bitmap);
 
 
-                    //Creación de parámetros
-                    Map<String, String> params = new Hashtable<String, String>();
+                //Creación de parámetros
+                Map<String, String> params = new Hashtable<String, String>();
 
-                    //Agregando de parámetros
-                    params.put(KEY_IMAGEN, imagen);
+                //Agregando de parámetros
+                params.put(KEY_IMAGEN, imagen);
 
-                    //Parámetros de retorno
-                    return params;
-                }
-            };
+                //Parámetros de retorno
+                return params;
+            }
+        };
 
-            //Creación de una cola de solicitudes
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-            //Agregar solicitud a la cola
-            requestQueue.add(stringRequest);
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
 
     }
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

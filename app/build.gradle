@@ -29,5 +29,4 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.1'
     implementation 'com.github.nileshpambhar:MultiPhotoPicker:v1.2'
-
 }

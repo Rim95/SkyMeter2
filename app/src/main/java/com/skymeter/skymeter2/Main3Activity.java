@@ -265,7 +265,8 @@ public class Main3Activity extends AppCompatActivity{
                 String imagen = getStringImagen(bitmap);
 
                 //Obtener el resultado de la concentracion de nubes
-                String nubes = editTextName.getText().toString().trim();
+               // String nubes = editTextName.getText().toString().trim();
+                String nubes = editTextName.getText().toString();
 
 
                 //Creación de parámetros

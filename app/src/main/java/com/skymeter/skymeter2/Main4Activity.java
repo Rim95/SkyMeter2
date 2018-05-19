@@ -71,7 +71,7 @@ public class Main4Activity extends AppCompatActivity {
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) Local);
 
-        mensaje1.setText("Localización agregada");
+        mensaje1.setText("Localización added");
         mensaje2.setText("");
     }
 
@@ -122,8 +122,8 @@ public class Main4Activity extends AppCompatActivity {
             loc.getLatitude();
             loc.getLongitude();
 
-            String Text = "My current location is : " + "\n Lat = "
-                    + loc.getLatitude() + "\n Long = " + loc.getLongitude();
+            String Text = "My current location is : " + "\n Latitude = "
+                    + loc.getLatitude() + "\n Longitude = " + loc.getLongitude();
             mensaje1.setText(Text);
             this.mainActivity.setLocation(loc);
         }
@@ -131,13 +131,13 @@ public class Main4Activity extends AppCompatActivity {
         @Override
         public void onProviderDisabled(String provider) {
             // Este metodo se ejecuta cuando el GPS es desactivado
-            mensaje1.setText("GPS Desactivado");
+            mensaje1.setText("GPS Disabled");
         }
 
         @Override
         public void onProviderEnabled(String provider) {
             // Este metodo se ejecuta cuando el GPS es activado
-            mensaje1.setText("GPS Activado");
+            mensaje1.setText("GPS Activated");
         }
 
         @Override

@@ -19,6 +19,7 @@
             android:id="@+id/btnSelectPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
             android:text="DARK" />
     </LinearLayout>
 
@@ -27,12 +28,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="1dp">
+        android:padding="5dp">
 
         <Button
             android:id="@+id/btnSubir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
             android:text="Submit" />
     </LinearLayout>
 

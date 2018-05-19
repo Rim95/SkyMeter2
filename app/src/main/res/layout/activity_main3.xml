@@ -22,6 +22,16 @@
             android:text="SKY" />
     </LinearLayout>
 
+
+    <!--Para avisar que es lo que se rellena en el siguiente campo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:textSize="20dp"
+        android:textColor="@android:color/background_light"
+        android:text="Clouds concentration"/>
+
     <!--Para decir la concentración de las nubes-->
     <EditText
         android:id="@+id/editText"
@@ -35,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="1dp">
+        android:padding="5dp">
 
         <Button
             android:id="@+id/btnSubir"
