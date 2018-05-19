@@ -33,7 +33,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Map;
 
 //Segunda actividad donde se toman las fotos
@@ -55,6 +58,7 @@ public class Main2Activity extends AppCompatActivity{
     private String UPLOAD_URL = "http://serverapp.webcindario.com/upload.php";
 
     private String KEY_IMAGEN = "foto";
+    private String KEY_FECHA = "fecha";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -258,12 +262,21 @@ public class Main2Activity extends AppCompatActivity{
                 //Convertir bits a cadena
                 String imagen = getStringImagen(bitmap);
 
-
                 //Creación de parámetros
                 Map<String, String> params = new Hashtable<String, String>();
 
+                //Para obtener el dia y la fecha
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                Date date = new Date();
+
+                String fecha = dateFormat.format(date);
+
                 //Agregando de parámetros
                 params.put(KEY_IMAGEN, imagen);
+                params.put(KEY_FECHA,fecha);
+
+
 
                 //Parámetros de retorno
                 return params;

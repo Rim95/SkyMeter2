@@ -55,7 +55,7 @@ public class Main3Activity extends AppCompatActivity{
     private int PICK_IMAGE_REQUEST = 1;
     private String UPLOAD_URL = "http://serverapp.webcindario.com/upload.php";
 
-    private String KEY_IMAGEN = "foto";  //ponia foto
+    private String KEY_IMAGEN = "foto";
     private String KEY_FECHA = "fecha";
     private String KEY_NUBES = "nubes";
 
@@ -273,8 +273,8 @@ public class Main3Activity extends AppCompatActivity{
                 String nubes = editTextName.getText().toString().trim();
                 //String nubes = editTextName.getText().toString();
 
-                //Fecha
-                //Para obtener el dia y la fecha
+
+                //Para obtener la fecha
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 Date date = new Date();
 
