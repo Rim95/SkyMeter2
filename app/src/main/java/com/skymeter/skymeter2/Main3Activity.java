@@ -274,7 +274,7 @@ public class Main3Activity extends AppCompatActivity{
                 String nubes = editTextName.getText().toString();
 
 
-                //Para obtener la fecha
+                //Para obtener la fecha//
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss", Locale.getDefault());
                 Date date = new Date();
 
